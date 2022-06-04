@@ -202,7 +202,7 @@ def crawl_naver_movie(number):
                     # print(directorName)
                     # print(image)
                 else:
-                    print("링크가 없는 감독")
+                    print("감독 세부 정보 없음")
 
                 
                     
@@ -240,7 +240,7 @@ def crawl_naver_movie(number):
                         TupleDataList = []
                 except:
                     TupleDataList = []
-                    # print("DB excute fault 똑같은 놈이 또 들어옴")
+                    # print("DB excute fault 똑같은 것이 또 들어옴")
                     
             
             # *************************************************************************************************
@@ -259,7 +259,7 @@ def crawl_naver_movie(number):
             
             # 다음 페이지가 더 없으면 작동
             except:
-                print("**********************페이지가 더 없습니다.****************")
+                print("*****************페이지가 더 없습니다.****************")
                 flag = 1
         
     
