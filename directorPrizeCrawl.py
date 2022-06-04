@@ -122,7 +122,7 @@ def crawl_naver_movie(number):
                     
                     try:
                         prizelist = soup3.select('#content > div.article > div.section_group > div.obj_section > div.awarded > div.tbl_area > table > tbody > tr')
-                        # list가 비어있으면 수상정보가 없는경우임
+                        # list가 비어있으면 수상정보가 없는 경우임
                         if prizelist:
                                                             
                             for tr in prizelist:
@@ -138,7 +138,7 @@ def crawl_naver_movie(number):
                                 
                                 prizeSite = mainsite+prize['href']
                                 if "prize" in prizeSite:
-                                    # print("수상 전용 사이트임")
+                                    # print("수상 전용 사이트")
                                     movie_id = None 
                                 else:
                                     movie_id = int(prizeSite.split('=')[1])
@@ -166,11 +166,11 @@ def crawl_naver_movie(number):
                                             TupleDataList = []
                                     except:
                                         TupleDataList = []
-                                        print("DB excute fault 똑같은 놈이 또 들어옴")                                    
+                                        print("DB excute fault 똑같은 것이 또 들어옴")                                    
                                     
                                                                         
                     except:
-                        print("수상정보가 없음")
+                        print("수상정보 없음")
                     #content > div.article > div:nth-child(7) > div:nth-child(2) > div > div.tbl_area.expand > table > tbody > tr:nth-child(3) > td.tbl_sub2 > a
                     #content > div.article > div:nth-child(7) > div:nth-child(2) > div > div.tbl_area.expand > table > tbody > tr:nth-child(6) > td.tbl_sub2.year_frst.year_convert > a
                     
@@ -260,7 +260,7 @@ def crawl_naver_movie(number):
                     # print(directorName)
                     # print(image)
                 else:
-                    print("링크가 없는 감독")
+                    print("감독 세부정보 없음")
 
                 
                     
@@ -298,7 +298,7 @@ def crawl_naver_movie(number):
                 #         TupleDataList = []
                 # except:
                 #     TupleDataList = []
-                    # print("DB excute fault 똑같은 놈이 또 들어옴")
+                    # print("DB excute fault 똑같은 것이 또 들어옴")
                     
             
             # *************************************************************************************************
@@ -317,7 +317,7 @@ def crawl_naver_movie(number):
             
             # 다음 페이지가 더 없으면 작동
             except:
-                print("**********************페이지가 더 없습니다.****************")
+                print("****************페이지가 더 없습니다.****************")
                 flag = 1
         
     
