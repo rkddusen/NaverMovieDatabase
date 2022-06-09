@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Database Project</title>
-    <link rel="stylesheet" type="text/css" href="/index.css">
+    <link href="index.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -22,16 +22,18 @@
                 return true;
             }
         </script>
-        <form method="post" action="/title">
-            <h1>검색</h1>
+        <form method="post" action="/title" class="search_form">
             <div>
+                <p style="font-size: 50px; margin-bottom: 10px;">Naver Movie Search</p>
+            </div>
+            <div class="search_div">
                 <select id="select">
                     <option>title</option>
                     <option>scope</option>
                     <option>director</option>
                 </select>
                 <input type="text" name="text" id="search"/>
-                <input type="submit" name="submit" value="검색" />
+                <input type="submit" name="submit" value="검색" id="search_button"/>
             </div>
         </form>
     </div>
