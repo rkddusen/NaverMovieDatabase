@@ -1,0 +1,42 @@
+/* index.html */
+*{ 
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+body{
+    margin: 30px;
+}
+.search_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.search_div{
+    border: 1px solid black;
+    padding: 2px;
+}
+#select{
+    font-size: 20px;
+    border: 1px solid black;
+}
+#search{
+    font-size: 20px;
+    width: 300px;
+}
+#search:focus-visible{
+    outline: none;
+}
+#search_button{
+    font-size: 20px;
+    background-color: white;
+    border: 1px solid black;
+    width: 50px;
+}
+.result{
+    display: flex;
+    margin: 10px;
+}
+
