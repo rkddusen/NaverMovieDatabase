@@ -1,0 +1,40 @@
+<!-- database project start -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Database Project</title>
+    <link href="index.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <header>
+
+    </header>
+    <div class="content_area">
+            <div class="one_result">
+                <div class="one_result_content">
+                    <a href="./movie?id=<%=movie_id%>"><span class="one_title"><%=title%></span></a><br />
+                    <span class="one_title2">(<%=title2%>)</span><br />
+                    <hr>
+                    <span>관람객 평점 : <%=audience_score%>/10
+                    (<%=audience_count%>명)&nbsp;&nbsp;
+                    평론가 평점 : <%=journalist_score%>/10
+                    (<%=journalist_count%>명)</span><br />
+                    <span>네티즌 평점 : <%=netizen_score%>/10
+                    (<%=netizen_count%>명)</span><br />
+                    <hr>
+                    <span>상영 시간 : <%=playing_time%>분</span><br />
+                    <span>개봉일 : <%=opening_date%></span><br />
+                    <span>등급 : (국내)<%=open_rating_korea%>&nbsp;&nbsp;
+                    (해외)<%=open_rating_overseas%></span>
+                </div>
+                <div class="one_result_image">
+                    <img src="<%=img%>">
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>
