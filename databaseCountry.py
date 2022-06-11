@@ -95,28 +95,33 @@ def crawl_naver_movie(number):
 
                 movie_id = int(url2.split('=')[1])
                 # 각 영화 country
-                choose = soup2.select_one('#content > div.article > div.mv_info_area > div.mv_info > dl > dd:nth-child(2) > p').find_all('a')
-                country=''
-                
-                print(len(choose))
-                for x in range(len(choose)):
-                    print(choose[x]["href"])
-                    if("nation" in choose[x]["href"]):
-                        country = choose[x].text
-                        print(country)
-                        DataList = (movie_id, country)
-                        TupleDataList.append(DataList)
-                print("------")
+                try:
+                    choose = soup2.select_one('#content > div.article > div.mv_info_area > div.mv_info > dl > dd:nth-child(2) > p').find_all('a')
+                    country=''
+                    
+                    print(len(choose))
+                    for x in range(len(choose)):
+                        print(choose[x]["href"])
+                        if("nation" in choose[x]["href"]):
+                            country = choose[x].text
+                            print(country)
+                            DataList = (movie_id, country)
+                            TupleDataList.append(DataList)
+                    print("------")
+                except:
+                    pass
                     
                 
                 # print(title) # 확인용 출력
                 
-                
-                # 2개씩 Excute
-                if len(TupleDataList)%2 == 0:
-                    cur.executemany(sql, TupleDataList)
-                    conn.commit()
-                    TupleDataList = []
+                try:
+                    # 2개씩 Excute
+                    if len(TupleDataList)%2 == 0:
+                        cur.executemany(sql, TupleDataList)
+                        conn.commit()
+                        TupleDataList = []
+                except:
+                    print("기본키와 중복되는 친구가 들어왔어요.")
             # *************************************************************************************************
             try:
         
