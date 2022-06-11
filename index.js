@@ -100,10 +100,29 @@ let search = '';
 const index = fs.readFileSync('./index.ejs', 'utf8');
 server.get("/title", (req, res) => {
     let titurl = req.url;
-    let query = url.parse(titurl,true).query.text;
-    console.log(query);
-    let sql = 'SELECT * FROM movie where title LIKE "%' + query + '%";';
-    let sqll = 'SELECT COUNT(*) AS number FROM movie where title like "%' + query + '%";';
+    let queryTitle = url.parse(titurl, true).query.text;
+    let queryOrder = url.parse(titurl, true).query.order;
+    if(queryOrder=='1'){
+        queryOrder = "title"
+    }
+    else if(queryOrder=='2'){
+        queryOrder = "title desc"
+    }
+    else if(queryOrder=='3'){
+        queryOrder = "opening_date"
+    }
+    else if(queryOrder=='4'){
+        queryOrder = "opening_date desc"
+    }
+    else if(queryOrder=='5'){
+        queryOrder = "playing_time"
+    }
+    else if(queryOrder=='6'){
+        queryOrder = "playing_time desc"
+    }
+    
+    let sql = 'SELECT * FROM movie where title LIKE "%' + queryTitle + '%" ORDER BY ' + queryOrder + ';';
+    let sqll = 'SELECT COUNT(*) AS number FROM movie where title like "%' + queryTitle + '%";';
     connection.query(sql + sqll,
         function (error, rows, fields) {
             if (error) {
@@ -134,34 +153,34 @@ server.get("/title", (req, res) => {
                     movie_id[i] = dataResult[i].movie_id;
                     title[i] = dataResult[i].title;
                     title2[i] = dataResult[i].title2;
-                    opening_date[i] = dataResult[i].opening_date?dataResult[i].opening_date:"-";
-                    playing_time[i] = dataResult[i].playing_time?dataResult[i].playing_time:"-분";
-                    audience_score[i] = dataResult[i].audience_score?dataResult[i].audience_score:"-";
-                    audience_count[i] = dataResult[i].audience_count?dataResult[i].audience_count:0;
-                    netizen_score[i] = dataResult[i].netizen_score?dataResult[i].netizen_score:"-";
-                    netizen_count[i] = dataResult[i].netizen_count?dataResult[i].netizen_count:0;
-                    journalist_score[i] = dataResult[i].journalist_score?dataResult[i].journalist_score:"-";
-                    journalist_count[i] = dataResult[i].journalist_count?dataResult[i].journalist_count:0;
-                    open_rating_korea[i] = dataResult[i].open_rating_korea?dataResult[i].open_rating_korea:"-";
-                    open_rating_overseas[i] = dataResult[i].open_rating_overseas?dataResult[i].open_rating_overseas:"-";
+                    opening_date[i] = dataResult[i].opening_date ? dataResult[i].opening_date : "-";
+                    playing_time[i] = dataResult[i].playing_time ? dataResult[i].playing_time : "-분";
+                    audience_score[i] = dataResult[i].audience_score ? dataResult[i].audience_score : "-";
+                    audience_count[i] = dataResult[i].audience_count ? dataResult[i].audience_count : 0;
+                    netizen_score[i] = dataResult[i].netizen_score ? dataResult[i].netizen_score : "-";
+                    netizen_count[i] = dataResult[i].netizen_count ? dataResult[i].netizen_count : 0;
+                    journalist_score[i] = dataResult[i].journalist_score ? dataResult[i].journalist_score : "-";
+                    journalist_count[i] = dataResult[i].journalist_count ? dataResult[i].journalist_count : 0;
+                    open_rating_korea[i] = dataResult[i].open_rating_korea ? dataResult[i].open_rating_korea : "-";
+                    open_rating_overseas[i] = dataResult[i].open_rating_overseas ? dataResult[i].open_rating_overseas : "-";
                     img[i] = dataResult[i].img;
                 }//데이터 생성
                 var page = ejs.render(index, {
-                    movie_id:movie_id,
+                    movie_id: movie_id,
                     title: title,
                     title2: title2,
-                    opening_date:opening_date,
-                    playing_time:playing_time,
-                    audience_score:audience_score,
-                    audience_count:audience_count,
-                    netizen_score:netizen_score,
-                    netizen_count:netizen_count,
-                    journalist_score:journalist_score,
-                    journalist_count:journalist_count,
-                    open_rating_korea:open_rating_korea,
-                    open_rating_overseas:open_rating_overseas,
-                    img:img,
-                    number:number
+                    opening_date: opening_date,
+                    playing_time: playing_time,
+                    audience_score: audience_score,
+                    audience_count: audience_count,
+                    netizen_score: netizen_score,
+                    netizen_count: netizen_count,
+                    journalist_score: journalist_score,
+                    journalist_count: journalist_count,
+                    open_rating_korea: open_rating_korea,
+                    open_rating_overseas: open_rating_overseas,
+                    img: img,
+                    number: number
                 });
                 //응답
                 res.send(page);
@@ -173,7 +192,7 @@ server.get("/title", (req, res) => {
 const basic = fs.readFileSync('./basic.ejs', 'utf8');
 server.get("/movie", (req, res) => {
     let idurl = req.url;
-    let queryId = url.parse(idurl,true).query.id;
+    let queryId = url.parse(idurl, true).query.id;
     let sql = 'SELECT * FROM movie where movie_id = ' + queryId + ';';
     connection.query(sql,
         function (error, rows, fields) {
@@ -202,33 +221,33 @@ server.get("/movie", (req, res) => {
                     movie_id = rows[i].movie_id;
                     title = rows[i].title;
                     title2 = rows[i].title2;
-                    opening_date = rows[i].opening_date?rows[i].opening_date:"-";
-                    playing_time = rows[i].playing_time?rows[i].playing_time:"-분";
-                    audience_score = rows[i].audience_score?rows[i].audience_score:"-";
-                    audience_count = rows[i].audience_count?rows[i].audience_count:0;
-                    netizen_score = rows[i].netizen_score?rows[i].netizen_score:"-";
-                    netizen_count = rows[i].netizen_count?rows[i].netizen_count:0;
-                    journalist_score = rows[i].journalist_score?rows[i].journalist_score:"-";
-                    journalist_count = rows[i].journalist_count?rows[i].journalist_count:0;
-                    open_rating_korea = rows[i].open_rating_korea?rows[i].open_rating_korea:"-";
-                    open_rating_overseas = rows[i].open_rating_overseas?rows[i].open_rating_overseas:"-";
+                    opening_date = rows[i].opening_date ? rows[i].opening_date : "-";
+                    playing_time = rows[i].playing_time ? rows[i].playing_time : "-분";
+                    audience_score = rows[i].audience_score ? rows[i].audience_score : "-";
+                    audience_count = rows[i].audience_count ? rows[i].audience_count : 0;
+                    netizen_score = rows[i].netizen_score ? rows[i].netizen_score : "-";
+                    netizen_count = rows[i].netizen_count ? rows[i].netizen_count : 0;
+                    journalist_score = rows[i].journalist_score ? rows[i].journalist_score : "-";
+                    journalist_count = rows[i].journalist_count ? rows[i].journalist_count : 0;
+                    open_rating_korea = rows[i].open_rating_korea ? rows[i].open_rating_korea : "-";
+                    open_rating_overseas = rows[i].open_rating_overseas ? rows[i].open_rating_overseas : "-";
                     img = rows[i].img;
                 }//데이터 생성
                 var page = ejs.render(basic, {
-                    movie_id:movie_id,
+                    movie_id: movie_id,
                     title: title,
                     title2: title2,
-                    opening_date:opening_date,
-                    playing_time:playing_time,
-                    audience_score:audience_score,
-                    audience_count:audience_count,
-                    netizen_score:netizen_score,
-                    netizen_count:netizen_count,
-                    journalist_score:journalist_score,
-                    journalist_count:journalist_count,
-                    open_rating_korea:open_rating_korea,
-                    open_rating_overseas:open_rating_overseas,
-                    img:img
+                    opening_date: opening_date,
+                    playing_time: playing_time,
+                    audience_score: audience_score,
+                    audience_count: audience_count,
+                    netizen_score: netizen_score,
+                    netizen_count: netizen_count,
+                    journalist_score: journalist_score,
+                    journalist_count: journalist_count,
+                    open_rating_korea: open_rating_korea,
+                    open_rating_overseas: open_rating_overseas,
+                    img: img
                 });
                 //응답
                 res.send(page);
