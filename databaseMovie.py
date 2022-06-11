@@ -116,11 +116,10 @@ def crawl_naver_movie(number):
                     title2 = None
 
 
-                # 개요 따오기 개봉 날짜
-                choose = soup2.select_one('#content > div.article > div.mv_info_area > div.mv_info > dl > dd:nth-child(2) > p').find_all('a')
-                opening_date=''
-                
+                # 개요 따오기 개봉 날짜                
                 try:
+                    choose = soup2.select_one('#content > div.article > div.mv_info_area > div.mv_info > dl > dd:nth-child(2) > p').find_all('a')
+                    opening_date=''
                     for x in range(len(choose)):
                         if("open" in choose[x]["href"]):
                             opening_date += choose[x].text
