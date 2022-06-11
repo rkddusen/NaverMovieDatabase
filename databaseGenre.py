@@ -95,28 +95,33 @@ def crawl_naver_movie(number):
 
                 movie_id = int(url2.split('=')[1])
                 # 각 영화 country
-                choose = soup2.select_one('#content > div.article > div.mv_info_area > div.mv_info > dl > dd:nth-child(2) > p').find_all('a')
-                genre=''
-                
-                print(len(choose))
-                for x in range(len(choose)):
-                    print(choose[x]["href"])
-                    if("genre" in choose[x]["href"]):
-                        genre = choose[x].text
-                        print(genre)
-                        DataList = (movie_id, genre)
-                        TupleDataList.append(DataList)
-                print("------")
+                try:
+                    choose = soup2.select_one('#content > div.article > div.mv_info_area > div.mv_info > dl > dd:nth-child(2) > p').find_all('a')
+                    genre=''
+                    
+                    print(len(choose))
+                    for x in range(len(choose)):
+                        print(choose[x]["href"])
+                        if("genre" in choose[x]["href"]):
+                            genre = choose[x].text
+                            print(genre)
+                            DataList = (movie_id, genre)
+                            TupleDataList.append(DataList)
+                    print("------")
+                except:
+                    pass
                     
                 
                 # print(title) # 확인용 출력
                 
-                
+                try:
                 # 2개씩 Excute
-                if len(TupleDataList)%2 == 0:
-                    cur.executemany(sql, TupleDataList)
-                    conn.commit()
-                    TupleDataList = []
+                    if len(TupleDataList)%2 == 0:
+                        cur.executemany(sql, TupleDataList)
+                        conn.commit()
+                        TupleDataList = []
+                except:
+                    print("기본키가 중복되는 놈이 들어옴.")
             # *************************************************************************************************
             try:
         
