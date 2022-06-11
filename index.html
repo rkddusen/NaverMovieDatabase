@@ -13,16 +13,16 @@
     </header>
     <div>
         <script>
+            let selectText = document.getElementById("select");
+            selectText = selectText.options[selectText.selectedIndex].text;
+            
             function submit2(fm) {
-                let selectText = document.getElementById("select");
-                selectText = selectText.options[selectText.selectedIndex].text;
-
                 fm.action="/"+selectText;
                 fm.submit();
                 return true;
             }
         </script>
-        <form method="post" action="/title" class="search_form">
+        <form method="get" action="/title" class="search_form">
             <div>
                 <p style="font-size: 50px; margin-bottom: 10px;">Naver Movie Search</p>
             </div>
