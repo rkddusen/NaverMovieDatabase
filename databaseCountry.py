@@ -143,11 +143,13 @@ def crawl_naver_movie(number):
         
     
         
-        
+    try:   
     # 혹시 1개가 남아있다면 나머지 1개도 Excute
-    if TupleDataList:
-        cur.executemany(sql, TupleDataList)
-        conn.commit()
+        if TupleDataList:
+            cur.executemany(sql, TupleDataList)
+            conn.commit()
+    except:
+        print("기본키와 중복되는 친구가 들어왔어요.")
         
     print("성공")
     conn.commit()

@@ -25,14 +25,52 @@
                     <span>네티즌 평점 : <%=netizen_score%>/10
                     (<%=netizen_count%>명)</span><br />
                     <hr>
+                    <span>국가 : 
+                            <%=country[0]%>
+                            <%if(country[1]){
+                                for(var i=1; i < country.length; i++) { %>
+                                    ,<%=country[i]%>
+                            <%}
+                        
+                         }%>
+                    </span>
+                    <hr>
+                    <span>장르 : 
+                        <%=genre[0]%>
+                            <%if(genre[1]){
+                                for(var i=1; i < genre.length; i++) { %>
+                                    ,<%=genre[i]%>
+                                <%}
+                        
+                         }%>
+                    </span>
+                    <hr>
                     <span>상영 시간 : <%=playing_time%>분</span><br />
                     <span>개봉일 : <%=opening_date%></span><br />
                     <span>등급 : (국내)<%=open_rating_korea%>&nbsp;&nbsp;
-                    (해외)<%=open_rating_overseas%></span>
+                    (해외)<%=open_rating_overseas%></span><br />
+                    관객수 : <%=total_count%>명
+                    
                 </div>
                 <div class="one_result_image">
                     <img src="<%=img%>">
                 </div>
+            </div>
+            
+            <div class="one_result_actor">
+                출연<br />
+                <% for(var i=0; i < actor_id.length-1; i++) { %>
+                <img src = "<%=actor_img[i]%>">
+                <div>
+                
+                    <%=role[i]%>(<%=total_role[i]%>)<br />
+                    이름 : <%=name[i]%>
+                    (<%=d_name[i]%>,<%=eng_name[i]%>)<br />
+                    생일 : <%=birth[i]%> | 
+                    신체 : <%=body[i]%>
+                
+            </div>
+            <% } %>
             </div>
     </div>
 </body>
