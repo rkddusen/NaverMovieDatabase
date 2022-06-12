@@ -113,6 +113,7 @@ def crawl_naver_movie(number):
                             print('o')
                             for sc in scriptList:
                                 thumb = sc.select_one('p.thumb > a')['href']
+                                thumb = mainsite + thumb
                                 one_line = sc.select_one('div.lines_area2 > p.one_line').text
                                 char_part = sc.select_one('div.lines_area2 >p.char_part > span').text
                                 char_name = sc.select_one('div.lines_area2 >p.char_part > a').text
