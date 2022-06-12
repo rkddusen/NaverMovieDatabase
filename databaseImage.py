@@ -100,17 +100,19 @@ def crawl_naver_movie(number):
                 url3 = photou
                 res3 = requests.get(url3) # 네이버 영화 디렉토리 크롤링 할 곳.
                 soup3 = BeautifulSoup(res3.content, 'html.parser')
-                choose = soup3.select_one('#photo_area > div > div.list_area._list_area > div > ul').find_all('li')
-                image=''
-                
-                print(len(choose))
-                for x in range(len(choose)):
-                    print(choose[x].select_one('img')['src'])
-                    image = choose[x].select_one('img')['src']
-                    DataList = (movie_id, image)
-                    TupleDataList.append(DataList)
-                print("------")
+                try:
+                    choose = soup3.select_one('#photo_area > div > div.list_area._list_area > div > ul').find_all('li')
+                    image=''
                     
+                    print(len(choose))
+                    for x in range(len(choose)):
+                        print(choose[x].select_one('img')['src'])
+                        image = choose[x].select_one('img')['src']
+                        DataList = (movie_id, image)
+                        TupleDataList.append(DataList)
+                    print("------")
+                except:
+                    pass       
                 
                 # print(title) # 확인용 출력
                 

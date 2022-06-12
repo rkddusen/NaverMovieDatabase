@@ -12,9 +12,9 @@
     <header>
 
     </header>
-    <div>
+    <div class="content_area">
         <div>
-            <p style="font-size: 30px; margin: 10px;">
+            <p style="font-size: 30px;padding: 20px;">
                 검색 결과
             </p>
         </div>
@@ -22,17 +22,21 @@
             <div class="result">
                 <!-- 영화 결과 하나씩 출력 -->
                 <div class="result_image">
-                    <img src="<%=image[i]%>">
+                    <a href="./movie?id=<%=movie_id[i]%>"><img src="<%=img[i]%>"></a>
                 </div>
                 <div class="result_content">
-                    <%=id[i]%> , <%=title[i]%><br />
-                    등급 : <%=movie_rate[i]%><br />
-                    네티즌 평점 : <%=netizen_rate[i]%>/10
-                    (<%=netizen_count[i]%>명)<br />
+                    <a href="./movie?id=<%=movie_id[i]%>"><b style="font-size: 20px;"><%=title[i]%></b>(<%=title2[i]%>)</a><br />
+                    관람객 평점 : <%=audience_score[i]%>/10
+                    (<%=audience_count[i]%>명)&nbsp;&nbsp;
                     평론가 평점 : <%=journalist_score[i]%>/10
                     (<%=journalist_count[i]%>명)<br />
-                    상영 시간 : <%=playing_time[i]%> 분<br />
+                    네티즌 평점 : <%=netizen_score[i]%>/10
+                    (<%=netizen_count[i]%>명)<br />
+                    
+                    상영 시간 : <%=playing_time[i]%>분<br />
                     개봉일 : <%=opening_date[i]%><br />
+                    등급 : (국내)<%=open_rating_korea[i]%>&nbsp;&nbsp;
+                    (해외)<%=open_rating_overseas[i]%>
                 </div>
             </div>
             <% } %>
