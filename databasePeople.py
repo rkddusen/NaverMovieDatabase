@@ -3,7 +3,6 @@ from tkinter.messagebox import NO
 import requests
 from bs4 import BeautifulSoup
 import pymysql
-from selenium import webdriver
 
 
 # 데이터베이스 네이버 영화 크롤링 작업 DB로 전송.
@@ -94,77 +93,81 @@ def crawl_naver_movie(number):
 
                 res2 = requests.get(url2) # 네이버 영화 디렉토리 크롤링 할 곳.
                 soup2 = BeautifulSoup(res2.content, 'html.parser')
+                choose=soup2.select("#content > div.article > div.section_group.section_group_frst > div.obj_section.noline > div > div.lst_people_area.height100 > ul > li")
 
-                try:
-                    actorlink=soup2.select_one("#content > div.article > div.section_group.section_group_frst > div.obj_section.noline > div > div.lst_people_area.height100 > ul > li:nth-child(1) > div > a")['href']
-                except:
-                    actorlink=None
-
-                if(actorlink!=None):
-                    url3=mainsite+actorlink
-
-                    res3=requests.get(url3)
-                    soup3 = BeautifulSoup(res3.content, 'html.parser')
+                for li in choose :
 
                     try:
-                        actorName=soup3.select_one("#content > div.article > div.mv_info_area > div.mv_info.character > h3 > a").text
+                        actorlink=li.select_one('div > a')['href']
+                        #:nth-child(1) > div > a")['href']
                     except:
-                        actorName=None
-                    
-                    try:
-                        actor_eng=soup3.select_one("#content > div.article > div.mv_info_area > div.mv_info.character > strong").text.replace('\r','').replace('\n','').replace('\t','')
-                    except:
-                        actor_eng=None
-                    
-                    try:
-                        actor_id=int(url3.split('=')[1])
-                    except:
-                        actor_id=None
+                        actorlink=None
 
-                    d_name=None
-                    body=None
+                    if(actorlink!=None):
+                        url3=mainsite+actorlink
 
-                    tbody=soup3.select("#content > div.article > div.section_group.section_group_frst > div:nth-child(1) > div > table > tbody > tr")
-                    for tr in tbody:
-                        th=tr.select('th')
-                        for idx, img in enumerate(th):
-                            try:
-                                alt=img.select_one('img')['alt']
-                                if(alt=="다른이름"):
-                                    try:
-                                        d_name=th[idx].next_sibling.next_sibling.text
-                                    except:
-                                        d_name=None
-                                elif(alt=="신체"):
-                                    try:
-                                        body=th[idx].next_sibling.next_sibling.text.replace(' ','').replace('\t','').replace('\n','').replace('\r','')
-                                    except:
-                                        body=None
+                        res3=requests.get(url3)
+                        soup3 = BeautifulSoup(res3.content, 'html.parser')
 
-                                    
-                            except:
-                                pass
-                            
+                        try:
+                            actorName=soup3.select_one("#content > div.article > div.mv_info_area > div.mv_info.character > h3 > a").text
+                        except:
+                            actorName=None
                         
+                        try:
+                            actor_eng=soup3.select_one("#content > div.article > div.mv_info_area > div.mv_info.character > strong").text.replace('\r','').replace('\n','').replace('\t','')
+                        except:
+                            actor_eng=None
+                        
+                        try:
+                            actor_id=int(url3.split('=')[1])
+                        except:
+                            actor_id=None
 
-                    try:
-                        image=soup3.select_one("#content > div.article > div.mv_info_area > div.poster > img")['src']
-                    except:
-                        image=None
+                        d_name=None
+                        body=None
 
-                    try:
-                        birth=(soup3.select_one("#content > div.article > div.mv_info_area > div.mv_info.character > dl > dt.step5")).next_sibling.next_sibling.text.replace('\r','').replace('\n','').replace('\t','').split('/')[0]
-                        if(birth[0]!='1' and birth[0]!='2' and birth[0]!='~'):
-                           birth=None
-                    except:
-                        birth=None
+                        tbody=soup3.select("#content > div.article > div.section_group.section_group_frst > div:nth-child(1) > div > table > tbody > tr")
+                        for tr in tbody:
+                            th=tr.select('th')
+                            for idx, img in enumerate(th):
+                                try:
+                                    alt=img.select_one('img')['alt']
+                                    if(alt=="다른이름"):
+                                        try:
+                                            d_name=th[idx].next_sibling.next_sibling.text
+                                        except:
+                                            d_name=None
+                                    elif(alt=="신체"):
+                                        try:
+                                            body=th[idx].next_sibling.next_sibling.text.replace(' ','').replace('\t','').replace('\n','').replace('\r','')
+                                        except:
+                                            body=None
+
+                                        
+                                except:
+                                    pass
+                                
+                            
+
+                        try:
+                            image=soup3.select_one("#content > div.article > div.mv_info_area > div.poster > img")['src']
+                        except:
+                            image=None
+
+                        try:
+                            birth=(soup3.select_one("#content > div.article > div.mv_info_area > div.mv_info.character > dl > dt.step5")).next_sibling.next_sibling.text.replace('\r','').replace('\n','').replace('\t','').split('/')[0]
+                            if(birth[0]!='1' and birth[0]!='2' and birth[0]!='~'):
+                                birth=None
+                        except:
+                            birth=None
 
                     DataList = (actor_id, actorName, actor_eng, birth, d_name, body, image)
                     
                     
                     TupleDataList.append(DataList)
 
-                    #print(DataList)
+                    print(DataList)
 
                 else:
                     print("링크가 없는 배우")
