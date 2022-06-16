@@ -175,11 +175,13 @@ def crawl_naver_movie(number):
         
     
         
-        
-    # 혹시 1개가 남아있다면 나머지 1개도 Excute
-    if TupleDataList:
-        cur.executemany(sql, TupleDataList)
-        conn.commit()
+    try:
+        # 혹시 1개가 남아있다면 나머지 1개도 Excute
+        if TupleDataList:
+            cur.executemany(sql, TupleDataList)
+            conn.commit()
+    except:
+        pass
         
     print("성공")
     conn.commit()

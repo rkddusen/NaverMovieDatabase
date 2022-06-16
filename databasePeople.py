@@ -197,10 +197,12 @@ def crawl_naver_movie(number):
             except:
                 print("**********************페이지가 더 없습니다.****************")
                 flag = 1
-
-    if TupleDataList:
-        cur.executemany(sql, TupleDataList)
-        conn.commit()
+    try:
+        if TupleDataList:
+            cur.executemany(sql, TupleDataList)
+            conn.commit()
+    except:
+        pass
     
     print("성공")
     conn.commit()
