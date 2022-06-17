@@ -132,6 +132,7 @@ def crawl_naver_movie(number):
                 # .text.replace("\n", "").replace("\r", "").replace("\t", "")
                 choose = soup2.select('#content > div.article > div.mv_info_area > div.mv_info > dl > dd:nth-child(2) > p > span')
 
+                playing_time = None
                 try:
                     for span in choose:    
                         minute = span.text.replace("\n", "").replace("\r", "").replace("\t", "")
@@ -139,7 +140,7 @@ def crawl_naver_movie(number):
                             # print(playing_time)
                             playing_time = int(minute.replace(" ", "").replace("분", ""))
                 except:
-                    playing_time = None
+                    pass
 
 
 

@@ -33,7 +33,7 @@ def crawl_naver_movie(number):
     movieList = soup.select('#old_content > dl.directory_item')
 
 
-    sql = "INSERT INTO image (id, image) VALUES(%s, %s);"        
+    sql = "INSERT INTO image (movie_id, image) VALUES(%s, %s);"        
 
     TupleDataList = []
 
