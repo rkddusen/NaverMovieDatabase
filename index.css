@@ -105,12 +105,12 @@ span{
     background-color: rgb(177, 177, 177);
     margin: 4px 0;
 }
-.one_result_actor{
+.one_result_actor, .one_result_director, .one_result_photo{
     padding: 40px;
 }
-.one_result_actor img{
+.one_result_actor img, .one_result_director img{
     float: left;
 }
-.one_result_actor div{
+.one_result_actor div, .one_result_director div, .one_result_photo div{
     height: 180px;
 }

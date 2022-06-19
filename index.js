@@ -180,6 +180,10 @@ server.get("/search", (req, res) => {
         sql = 'SELECT * FROM movie, country where movie.movie_id = country.movie_id and country.country = "' + queryText + '" ORDER BY movie.' + queryOrder + ';';
         sqll = 'SELECT COUNT(*) AS number FROM movie, country where movie.movie_id = country.movie_id and country.country = "' + queryText + '";';
     }
+    else if(queryName=='director'){
+        sql = 'SELECT * FROM movie_director, director, movie where movie.movie_id = movie_director.movie_id and movie_director.director_id = director.director_id and director.name = "' + queryText + '" ORDER BY movie.' + queryOrder + ';';
+        sqll = 'SELECT COUNT(*) AS number FROM movie_director, director, movie where movie.movie_id = movie_director.movie_id and movie_director.director_id = director.director_id and director.name = "' + queryText + '";';
+    }
     connection.query(sql + sqll,
         function (error, rows, fields) {
             if (error) {
@@ -260,7 +264,10 @@ server.get("/movie", (req, res) => {
     let sqlCast = 'SELECT * FROM cast, actor where cast.actor_id = actor.actor_id and movie_id = ' + queryId + ';';
     let sqlCountry = 'SELECT * FROM country where movie_id = ' + queryId + ';';
     let sqlGenre = 'SELECT * FROM genre where movie_id = ' + queryId + ';';
-    connection.query(sql+sqlCast+sqlCountry+sqlGenre,
+    let sqlDirector = 'SELECT * FROM movie_director m, director d where m.director_id=d.director_id and m.movie_id = ' + queryId + ';';
+    let sqlDirectorCountry = 'SELECT * FROM movie_director m, director_country c where m.director_id=c.director_id and m.movie_id = ' + queryId + ';'
+    let sqlPhoto = 'SELECT * FROM image where movie_id = ' + queryId + ';';
+    connection.query(sql+sqlCast+sqlCountry+sqlGenre+sqlDirector+sqlDirectorCountry+sqlPhoto,
         function (error, rows, fields) {
             if (error) {
                 console.log(error);
@@ -270,6 +277,10 @@ server.get("/movie", (req, res) => {
                 let castResult = rows[1];
                 let countryResult = rows[2];
                 let genreResult = rows[3];
+                let directorResult = rows[4];
+                let directorCountryResult = rows[5];
+                let photoResult = rows[6];
+
                 //검색 결과 화면에 영화제목, 관람객 평점, 관람객 수, 네티즌 평점, 네티즌 수, 평론가 평점, 평론가 수,
                 //상영시간, 개봉일을 담을 s예정
                 let movie_id = 0;
@@ -300,6 +311,14 @@ server.get("/movie", (req, res) => {
                 let country = new Array();
 
                 let genre =new Array();
+
+                let director_id = new Array();
+                let director_name = new Array();
+                let director_birth = new Array();
+                let director_image = new Array();
+                let director_country = new Array();
+
+                let photo=new Array();
                 for (var i in rows[0]) {
                     movie_id = movieResult[i].movie_id;
                     title = movieResult[i].title;
@@ -316,10 +335,7 @@ server.get("/movie", (req, res) => {
                     open_rating_overseas = movieResult[i].open_rating_overseas ? movieResult[i].open_rating_overseas : "-";
                     total_count = movieResult[i].total_count ? movieResult[i].total_count : 0;
                     img = movieResult[i].img?movieResult[i].img:"https://ssl.pstatic.net/static/movie/2012/06/dft_img203x290.png";
-                }//데이터 생성
-                // for(var j in rows[1]){
-                //     director[j]=directorResult[j].director;
-                // }
+                }
                 
                 for(var h in rows[1]){
                     actor_id[h]=castResult[h].actor_id;
@@ -330,13 +346,25 @@ server.get("/movie", (req, res) => {
                     birth[h] =castResult[h].birth?castResult[h].birth:"-";
                     d_name[h] =castResult[h].d_name?castResult[h].d_name:"-";
                     body[h] =castResult[h].body?castResult[h].body:"-";
-                    actor_img[h] = castResult[h].image?castResult[h].image:"https://movie.naver.com/movie/bi/pi/basic.naver?code=379173";
+                    actor_img[h] = castResult[h].image?castResult[h].image:"https://ssl.pstatic.net/static/movie/2012/06/dft_img120x150.png";
                 }
                 for(var j in rows[2]){
                     country[j] = countryResult[j].country;
                 }
                 for(var k in rows[3]){
                     genre[k] = genreResult[k].genre;
+                }
+                for(var l in rows[4]){
+                    director_id[l] = directorResult[l].director_id;
+                    director_name[l] = directorResult[l].name;
+                    director_birth[l] = directorResult[l].birth;
+                    director_image[l] = directorResult[l].image;
+                }
+                for(var m in rows[5]){
+                    director_country[m] = directorCountryResult[m].country;
+                }
+                for(var n in rows[6]){
+                    photo[n] = photoResult[n].image;
                 }
                 var page = ejs.render(basic, {
                     movie_id: movie_id,
@@ -366,7 +394,15 @@ server.get("/movie", (req, res) => {
                     actor_img,
 
                     country:country,
-                    genre:genre
+                    genre:genre,
+
+                    director_id:director_id,
+                    director_name:director_name,
+                    director_birth:director_birth,
+                    director_image:director_image,
+                    director_country:director_country,
+
+                    photo:photo
                 });
                 //응답
                 res.send(page);

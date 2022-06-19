@@ -10,7 +10,7 @@ import pymysql
 
 # db 열기
 def open_db():
-    conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='root', db='practice', charset='utf8')
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='eeldhd4120', db='movie', charset='utf8')
     cur = conn.cursor(pymysql.cursors.DictCursor)
     
     return conn, cur
@@ -66,7 +66,7 @@ def crawl_naver_movie(number):
     
     
     # 반복 시작
-    for url in movieDirectory:
+    for url in movieDirectory[63:64]:
            
 
         flag = 0
@@ -254,7 +254,8 @@ def crawl_naver_movie(number):
                 # numb = (numb + 1)
                 # print(numb)
                 # print("페이지")
-                
+                if(url=="https://movie.naver.com/movie/sdb/browsing/bmovie.naver?nation=US&page=2"):
+                    url = "https://movie.naver.com/movie/sdb/browsing/bmovie.naver?nation=US&page=1380"
                     
             
             # 다음 페이지가 더 없으면 작동

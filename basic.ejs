@@ -57,9 +57,28 @@
                 </div>
             </div>
             
+            <div class="one_result_director">
+                감독<br />
+                <% for(var i=0; i < director_id.length; i++) { %>
+                <img src = "<%=director_image[i]%>">
+                <div>
+                    이름 : <%=director_name[i]%><br />
+                    생일 : <%=director_birth[i]%><br />
+                    국가 : <%=director_country[i]%>
+                </div>
+                <% } %> 
+                <% for(var i=0; i < director_country.length; i++) { %>
+                    <sapn>
+                        
+                        국가 : <%=director_country[i]%>
+                    </span>
+                    <% } %> 
+                
+                
+            </div>
             <div class="one_result_actor">
                 출연<br />
-                <% for(var i=0; i < actor_id.length-1; i++) { %>
+                <% for(var i=0; i < actor_id.length; i++) { %>
                 <img src = "<%=actor_img[i]%>">
                 <div>
                 
@@ -69,7 +88,13 @@
                     생일 : <%=birth[i]%> | 
                     신체 : <%=body[i]%>
                 
+                </div>
+            <% } %>
             </div>
+            <div class="one_result_photo">
+                포토<br />
+                <% for(var i=0; i < photo.length; i++) { %>
+                <img src = "<%=photo[i]%>">
             <% } %>
             </div>
     </div>

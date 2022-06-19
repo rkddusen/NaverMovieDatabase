@@ -9,7 +9,7 @@ import pymysql
 
 # db 열기
 def open_db():
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='', db='movie', charset='utf8')
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='eeldhd4120', db='movie', charset='utf8')
     cur = conn.cursor(pymysql.cursors.DictCursor)
     
     return conn, cur
@@ -62,7 +62,7 @@ def crawl_naver_movie(number):
     
     
     # 반복 시작
-    for url in movieDirectory[0:10]:
+    for url in movieDirectory[63:64]:
            
 
         flag = 0
