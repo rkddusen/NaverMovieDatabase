@@ -64,7 +64,7 @@ def crawl_naver_movie(number):
     
     
     # 반복 시작
-    for url in movieDirectory[64:]:
+    for url in movieDirectory[63:64]:
            
 
         flag = 0
@@ -267,7 +267,7 @@ def crawl_naver_movie(number):
                 try:
                     # 2개씩 Excute
                     # sql = "INSERT INTO movie (movie_id, title, title2, opening_date, playing_time, audience_score, audience_count, netizen_score, netizen_count, journalist_score, journalist_count, open_rating_korea, open_rating_overseas, total_count, img) VALUES(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);"
-                    if len(TupleDataList)%10 == 0:
+                    if len(TupleDataList)%2 == 0:
                         cur.executemany(sql, TupleDataList)
                         conn.commit()
                         TupleDataList = []
@@ -282,6 +282,10 @@ def crawl_naver_movie(number):
                 abc = soup.select_one('#old_content > div.pagenavigation > table > tr > td.next > a')['href']
                 # print(abc)
                 url = mainsite + abc
+                if(url=="https://movie.naver.com/movie/sdb/browsing/bmovie.naver?nation=US&page=2"):
+                    url = "https://movie.naver.com/movie/sdb/browsing/bmovie.naver?nation=US&page=2213"
+                
+              
                 # numb = (numb + 1)
                 # print(numb)
                 # print("페이지")

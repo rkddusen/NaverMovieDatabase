@@ -9,7 +9,7 @@ import pymysql
 
 # db 열기
 def open_db():
-    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='', db='movie', charset='utf8')
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='eeldhd4120', db='movie', charset='utf8')
     cur = conn.cursor(pymysql.cursors.DictCursor)
     
     return conn, cur
@@ -62,7 +62,7 @@ def crawl_naver_movie(number):
     
     
     # 반복 시작
-    for url in movieDirectory[0:10]:
+    for url in movieDirectory[63:64]:
            
 
         flag = 0
@@ -114,14 +114,15 @@ def crawl_naver_movie(number):
                 
                 # print(title) # 확인용 출력
                 
+
                 try:
-                    # 2개씩 Excute
+                # 2개씩 Excute
                     if len(TupleDataList)%2 == 0:
                         cur.executemany(sql, TupleDataList)
                         conn.commit()
                         TupleDataList = []
                 except:
-                    print("기본키와 중복되는 친구가 들어왔어요.")
+                    print("기본키가 중복되는 놈이 들어옴.")
             # *************************************************************************************************
             try:
         
@@ -133,6 +134,8 @@ def crawl_naver_movie(number):
                 # numb = (numb + 1)
                 # print(numb)
                 # print("페이지")
+                if(url=="https://movie.naver.com/movie/sdb/browsing/bmovie.naver?nation=US&page=2"):
+                    url = "https://movie.naver.com/movie/sdb/browsing/bmovie.naver?nation=US&page=1245"
                 
                     
             

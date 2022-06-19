@@ -3,7 +3,6 @@ from tkinter.messagebox import NO
 import requests
 from bs4 import BeautifulSoup
 import pymysql
-from selenium import webdriver
 
 
 # 데이터베이스 네이버 영화 크롤링 작업 DB로 전송.
@@ -11,7 +10,7 @@ from selenium import webdriver
 
 # db 열기
 def open_db():
-    conn = pymysql.connect(host='localhost', port=3307, user='root', passwd='root', db='practice', charset='utf8')
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='eeldhd4120', db='movie', charset='utf8')
     cur = conn.cursor(pymysql.cursors.DictCursor)
     
     return conn, cur
@@ -62,7 +61,7 @@ def crawl_naver_movie(number):
     
     
     # 반복 시작
-    for url in movieDirectory:
+    for url in movieDirectory[63:64]:
            
 
         flag = 0
@@ -134,6 +133,9 @@ def crawl_naver_movie(number):
                 abc = soup.select_one('#old_content > div.pagenavigation > table > tr > td.next > a')['href']
                 # print(abc)
                 url = mainsite + abc
+                if(url=="https://movie.naver.com/movie/sdb/browsing/bmovie.naver?nation=US&page=2"):
+                    url = "https://movie.naver.com/movie/sdb/browsing/bmovie.naver?nation=US&page=444"
+                
                 # numb = (numb + 1)
                 # print(numb)
                 # print("페이지")
