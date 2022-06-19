@@ -1,0 +1,103 @@
+<!-- database project start -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Database Project</title>
+    <link href="index.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <header>
+
+    </header>
+    <div class="content_area">
+            <div class="one_result">
+                <div class="one_result_content">
+                    <a href="./movie?id=<%=movie_id%>"><span class="one_title"><%=title%></span></a><br />
+                    <span class="one_title2">(<%=title2%>)</span><br />
+                    <hr>
+                    <span>관람객 평점 : <%=audience_score%>/10
+                    (<%=audience_count%>명)&nbsp;&nbsp;
+                    평론가 평점 : <%=journalist_score%>/10
+                    (<%=journalist_count%>명)</span><br />
+                    <span>네티즌 평점 : <%=netizen_score%>/10
+                    (<%=netizen_count%>명)</span><br />
+                    <hr>
+                    <span>국가 : 
+                            <%=country[0]%>
+                            <%if(country[1]){
+                                for(var i=1; i < country.length; i++) { %>
+                                    ,<%=country[i]%>
+                            <%}
+                        
+                         }%>
+                    </span>
+                    <hr>
+                    <span>장르 : 
+                        <%=genre[0]%>
+                            <%if(genre[1]){
+                                for(var i=1; i < genre.length; i++) { %>
+                                    ,<%=genre[i]%>
+                                <%}
+                        
+                         }%>
+                    </span>
+                    <hr>
+                    <span>상영 시간 : <%=playing_time%>분</span><br />
+                    <span>개봉일 : <%=opening_date%></span><br />
+                    <span>등급 : (국내)<%=open_rating_korea%>&nbsp;&nbsp;
+                    (해외)<%=open_rating_overseas%></span><br />
+                    관객수 : <%=total_count%>명
+                    
+                </div>
+                <div class="one_result_image">
+                    <img src="<%=img%>">
+                </div>
+            </div>
+            
+            <div class="one_result_director">
+                감독<br />
+                <% for(var i=0; i < director_id.length; i++) { %>
+                <img src = "<%=director_image[i]%>">
+                <div>
+                    이름 : <%=director_name[i]%><br />
+                    생일 : <%=director_birth[i]%><br />
+                    국가 : <%=director_country[i]%>
+                </div>
+                <% } %> 
+                <% for(var i=0; i < director_country.length; i++) { %>
+                    <sapn>
+                        
+                        국가 : <%=director_country[i]%>
+                    </span>
+                    <% } %> 
+                
+                
+            </div>
+            <div class="one_result_actor">
+                출연<br />
+                <% for(var i=0; i < actor_id.length; i++) { %>
+                <img src = "<%=actor_img[i]%>">
+                <div>
+                
+                    <%=role[i]%>(<%=total_role[i]%>)<br />
+                    이름 : <%=name[i]%>
+                    (<%=d_name[i]%>,<%=eng_name[i]%>)<br />
+                    생일 : <%=birth[i]%> | 
+                    신체 : <%=body[i]%>
+                
+                </div>
+            <% } %>
+            </div>
+            <div class="one_result_photo">
+                포토<br />
+                <% for(var i=0; i < photo.length; i++) { %>
+                <img src = "<%=photo[i]%>">
+            <% } %>
+            </div>
+    </div>
+</body>
+
+</html>

@@ -1,1 +1,57 @@
-<!-- database project start -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Database Project</title>
+    <link href="index.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <header>
+
+    </header>
+    <div class="search_area">
+        <!-- <script>
+            let selectText = document.getElementById("select");
+            selectText = selectText.options[selectText.selectedIndex].text;
+            
+            function submit2(fm) {
+                fm.action="/"+selectText;
+                fm.submit();
+                return true;
+            }
+        </script> -->
+        <form method="get" action="/search" class="search_form">
+            <div>
+                <p style="font-size: 50px; margin-bottom: 10px;">Naver Movie Search</p>
+            </div>
+            <div class="search_div">
+                <select class="select" name="name">
+                    <option value="title">title</option>
+                    <option value="genre">genre</option>
+                    <option value="director">director</option>
+                    <option value="country">country</option>
+                </select>
+                <select class="select" name="order">
+                    <option value="1">정렬순</option>
+                    <option value="1">제목(오름차순)</option>
+                    <option value="2">제목(내림차순)</option>
+                    <option value="3">개봉일(오래된순)</option>
+                    <option value="4">개봉일(최신순)</option>
+                    <option value="5">상영시간(오름차순)</option>
+                    <option value="6">상영시간(내림차순)</option>
+                    <option value="7">관람객평점(오름차순)</option>
+                    <option value="8">관람객평점(내림차순)</option>
+                    <option value="9">관객수(오름차순)</option>
+                    <option value="10">관객수(내림차순)</option>
+                </select>
+                <input type="text" name="text" id="search"/>
+                <input type="submit" value="검색" id="search_button"/>
+                
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
